@@ -23,7 +23,7 @@
     "ext-json": "*",
     "guzzlehttp/guzzle": "^7.2",
     "web3p/web3.php": "*",
-    "kornrunner/secp256k1": "^0.2",
+    "kornrunner/secp256k1": "^0.3.0",
     "simplito/elliptic-php": "^1.0"
   },
   "require-dev": {
