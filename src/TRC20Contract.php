@@ -60,7 +60,7 @@ class TRC20Contract
      *
      * @var string|null
      */
-    private $abiData;
+    private mixed $abiData;
 
     /**
      * Fee Limit
@@ -288,15 +288,14 @@ class TRC20Contract
 
         $tokenAmount = bcmul($amount, bcpow("10", (string)$this->decimals(), 0), 0);
 
-        $transfer = $this->_tron->getTransactionBuilder()
-            ->triggerSmartContract(
-                $this->abiData,
-                $this->_tron->address2HexString($this->contractAddress),
-                'transfer',
-                [$this->_tron->address2HexString($to), $tokenAmount],
-                $feeLimitInSun,
-                $this->_tron->address2HexString($from)
-            );
+        $transfer = $this->_tron->getTransactionBuilder()->triggerSmartContract(
+            $this->abiData,
+            $this->_tron->address2HexString($this->contractAddress),
+            'transfer',
+            [$this->_tron->address2HexString($to), $tokenAmount],
+            $feeLimitInSun,
+            $this->_tron->address2HexString($from)
+        );
 
         $signedTransaction = $this->_tron->signTransaction($transfer);
         $response          = $this->_tron->sendRawTransaction($signedTransaction);
@@ -363,7 +362,7 @@ class TRC20Contract
      * @return mixed
      * @throws TronException
      */
-    private function trigger($function, $address = null, array $params = [])
+    private function trigger($function, $address = null, array $params = []): mixed
     {
         $owner_address = is_null($address) ? '410000000000000000000000000000000000000000' : $this->_tron->address2HexString($address);
 
